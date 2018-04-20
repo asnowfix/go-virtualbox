@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- https://groups.google.com/forum/#!topic/golang-nuts/shRlhV3Fe2E -->
+<!-- $ go get github.com/akavel/rsrc -->
+<!-- $ rsrc.exe -manifest FILE.exe.manifest [-o FILE.syso] -->
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+<assemblyIdentity
+    version="9.0.0.0"
+    processorArchitecture="x86"
+    name="myapp.exe"
+    type="win32"
+/>
+<description>My App</description>
+<trustInfo xmlns="urn:schemas-microsoft-com:asm.v3">
+    <security>
+        <requestedPrivileges>
+            <requestedExecutionLevel level="requireAdministrator" uiAccess="false"/>
+        </requestedPrivileges>
+    </security>
+</trustInfo>
+</assembly>
