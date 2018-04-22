@@ -7,6 +7,28 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+type manageGuestProp struct {
+}
+
+func (manageGuestProp) run(args ...string) error {
+	return nil
+}
+
+func (manageGuestProp) runOut(args ...string) (string, error) {
+	return "Value: test_val", nil
+}
+
+func (manageGuestProp) runOutErr(args ...string) (string, string, error) {
+	return "", "", nil
+}
+
+// func init() {
+// 	var ok = os.Getenv("TEST_FAKE_VBM")
+// 	if len(ok) > 0 {
+// 		Manage = new(manageGuestProp)
+// 	}
+// }
+
 func TestGuestProperty(t *testing.T) {
 	require := require.New(t)
 
