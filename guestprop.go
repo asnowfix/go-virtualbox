@@ -1,7 +1,6 @@
 package virtualbox
 
 import (
-	"fmt"
 	"log"
 	"regexp"
 	"strings"
@@ -34,7 +33,7 @@ func GetGuestProperty(vm string, prop string) (string, error) {
 		log.Print("match:", match)
 	}
 	if len(match) != 2 {
-		return "", fmt.Errorf("No match with VBoxManage get guestproperty output")
+		return "", t.Errorf("No match with VBoxManage get guestproperty output")
 	}
 	return match[1], nil
 }
