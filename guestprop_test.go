@@ -8,6 +8,8 @@ import (
 )
 
 func TestGuestProperty(t *testing.T) {
+	assert := assert.New(t)
+
 	var vm = os.Getenv("TEST_VM")
 	if len(vm) <= 0 {
 		vm = "go-virtualbox"
@@ -16,29 +18,29 @@ func TestGuestProperty(t *testing.T) {
 	t.Logf("Using '%s'", vm)
 
 	err := SetGuestProperty(vm, "test_key", "test_val")
-	assert.Nil(t, err, "failed setting guestproperty")
+	assert.Nil(err, "failed setting guestproperty")
 	if Verbose {
 		t.Logf("OK SetGuestProperty test_key=test_val")
 	}
 
 	val, err := GetGuestProperty(vm, "test_key")
-	assert.Nil(t, err, "failed getting guestproperty")
+	assert.Nil(err, "failed getting guestproperty")
 	t.Logf("val='%s'", val)
-	assert.Equal(t, val, "test_val", "guestproperty not set to the proper value")
+	assert.Equal(val, "test_val", "guestproperty not set to the proper value")
 	if Verbose {
 		t.Logf("OK GetGuestProperty test_key=test_val")
 	}
 
 	// Now deletes it...
 	err = DeleteGuestProperty(vm, "test_key")
-	assert.Nil(t, err, "failed deleting guestproperty")
+	assert.Nil(err, "failed deleting guestproperty")
 	if Verbose {
 		t.Logf("OK DeleteGuestProperty test_key")
 	}
 
 	// ...and check that it is  no longer readable
 	_, err = GetGuestProperty(vm, "test_key")
-	assert.NotNil(t, err, "guestproperty not deleted")
+	assert.NotNil(err, "guestproperty not deleted")
 
 	if Verbose {
 		t.Logf("OK GetGuestProperty test_key=empty")
