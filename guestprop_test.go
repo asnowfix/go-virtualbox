@@ -1,11 +1,23 @@
 package virtualbox
 
 import (
+	"fmt"
 	"os"
 	"testing"
 
+	"github.com/asnowfix/go-virtualbox/mocks"
 	"github.com/stretchr/testify/require"
 )
+
+func init() {
+	var ok = os.Getenv("TEST_MOCK_VBM")
+	if len(ok) > 0 {
+		fmt.Println("Using mocked VBoxManage")
+		Manage = &mocks.Command{}
+	} else {
+		fmt.Println("Using real VBoxManage")
+	}
+}
 
 func TestGuestProperty(t *testing.T) {
 	require := require.New(t)
