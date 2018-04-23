@@ -12,15 +12,9 @@ import (
 	"strings"
 )
 
-type manage struct{}
-
 var (
-	// Manage holds the command to run VBoxManage.
-	Manage Command
-	// VBM is the path to VBoxManage utility.
-	VBM string
-	// Verbose mode.
-	Verbose bool
+	VBM     string // Path to VBoxManage utility.
+	Verbose bool   // Verbose mode.
 )
 
 func init() {
@@ -47,6 +41,13 @@ var (
 	ErrMachineExist    = errors.New("machine already exists")
 	ErrMachineNotExist = errors.New("machine does not exist")
 	ErrVBMNotFound     = errors.New("VBoxManage not found")
+)
+
+type manage struct{}
+
+var (
+	// Manage holds the command to run VBoxManage
+	Manage manage
 )
 
 func (manage) run(args ...string) error {
