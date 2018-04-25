@@ -12,7 +12,11 @@ import (
 	"strings"
 )
 
+type manage struct{}
+
 var (
+	// Manage holds the command to run VBoxManage
+	Manage manage
 	// VBM holds the inferred path to the VBoxManage utility.
 	VBM string
 	// Verbose when set toggle the library in verbose execution mode.
@@ -20,6 +24,8 @@ var (
 )
 
 func init() {
+	Manage = manage{}
+
 	VBM = "VBoxManage"
 	p := os.Getenv("VBOX_INSTALL_PATH")
 
@@ -46,13 +52,6 @@ var (
 	ErrMachineNotExist = errors.New("machine does not exist")
 	// ErrVBMNotFound holds the error message when the VBoxManage commands was not found.
 	ErrVBMNotFound = errors.New("VBoxManage not found")
-)
-
-type manage struct{}
-
-var (
-	// Manage holds the command to run VBoxManage
-	Manage Command = manage{}
 )
 
 func (manage) run(args ...string) error {
