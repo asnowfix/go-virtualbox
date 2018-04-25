@@ -7,11 +7,13 @@ import (
 	"testing"
 
 	"github.com/golang/mock/gomock"
+
+	mock_virtualbox "github.com/asnowfix/go-virtualbox/mocks"
 )
 
 var (
 	MockCtrl       *gomock.Controller
-	ManageMock     *MockCommand
+	ManageMock     *mock_virtualbox.MockCommand
 	VM             string
 	TestDataFolder string
 )
@@ -30,7 +32,7 @@ func Setup(t *testing.T) {
 	VM = os.Getenv("TEST_VM")
 	MockCtrl = gomock.NewController(t)
 	if len(VM) < 1 {
-		ManageMock = NewMockCommand(MockCtrl)
+		ManageMock = mock_virtualbox.NewMockCommand(MockCtrl)
 		Manage = ManageMock
 		t.Logf("Using ManageMock=%v (type=%T)", ManageMock, ManageMock)
 	} else {

@@ -78,5 +78,5 @@ run `go test --run TestGuestProperty`.
 ### Re-generate mock
 
 ```bash
-mockgen -source=vbcmd.go -destination=mockvbcmd_test.go
+mockgen -source=vbcmd.go -destination=mocks/vbcmd.go
 ```
