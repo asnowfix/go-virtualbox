@@ -1,4 +1,4 @@
-package virtualbox
+package virtualbox_test
 
 import (
 	"io/ioutil"
@@ -6,6 +6,7 @@ import (
 	"path"
 	"testing"
 
+	virtualbox "github.com/asnowfix/go-virtualbox"
 	"github.com/golang/mock/gomock"
 )
 
@@ -25,18 +26,18 @@ func ReadTestData(file string) string {
 }
 
 func Setup(t *testing.T) {
-	Verbose = true
+	virtualbox.Verbose = true
 
 	VM = os.Getenv("TEST_VM")
 	MockCtrl = gomock.NewController(t)
 	if len(VM) < 1 {
 		ManageMock = NewMockCommand(MockCtrl)
-		Manage = ManageMock
+		virtualbox.Manage = ManageMock
 		t.Logf("Using ManageMock=%v (type=%T)", ManageMock, ManageMock)
 	} else {
 		t.Logf("Using VBoxManage with real VM='%s'\n", VM)
 	}
-	t.Logf("Using VBoxManage='%T'", Manage)
+	t.Logf("Using VBoxManage='%T'", virtualbox.Manage)
 }
 
 func Teardown() {
@@ -51,7 +52,7 @@ func TestVBMOut(t *testing.T) {
 			"\"go-virtualbox\" {def44546-aaaa-4902-8d15-b91c99c80cbc}"
 		ManageMock.EXPECT().runOut("list", "vms").Return(out, nil)
 	}
-	b, err := Manage.runOut("list", "vms")
+	b, err := virtualbox.Manage.runOut("list", "vms")
 	if err != nil {
 		t.Fatal(err)
 	}

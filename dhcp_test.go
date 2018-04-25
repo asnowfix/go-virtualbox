@@ -1,8 +1,9 @@
-package virtualbox
+package virtualbox_test
 
 import (
 	"testing"
 
+	virtualbox "github.com/asnowfix/go-virtualbox"
 	"github.com/golang/mock/gomock"
 )
 
@@ -15,7 +16,7 @@ func TestDHCPs(t *testing.T) {
 			ManageMock.EXPECT().runOut("list", "dhcpservers").Return(listDhcpServersOut, nil).Times(1),
 		)
 	}
-	m, err := DHCPs()
+	m, err := virtualbox.DHCPs()
 	if err != nil {
 		t.Fatal(err)
 	}

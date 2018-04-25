@@ -14,6 +14,7 @@ API doc at http://godoc.org/github.com/riobard/go-virtualbox
 - [Testing](#testing)
     - [Preparation](#preparation)
     - [Run tests](#run-tests)
+    - [Re-generate mock](#re-generate-mock)
 
 <!-- /TOC -->
 
@@ -38,6 +39,7 @@ Then build:
 ```bash
 $ go build -v
 ```
+
 ## Testing 
 
 ### Preparation
@@ -72,3 +74,9 @@ Once you are done with testing, run `vagrant halt` to same resources.
 As usual, run `go test`, or `go test -v`.  To run one test in particular,
 run `go test --run TestGuestProperty`.
 
+
+### Re-generate mock
+
+```bash
+mockgen -source=vbcmd.go -destination=mockvbcmd_test.go -package=virtualbox_test -mock_names=Command=MockCommand
+```

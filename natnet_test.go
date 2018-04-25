@@ -1,8 +1,9 @@
-package virtualbox
+package virtualbox_test
 
 import (
 	"testing"
 
+	virtualbox "github.com/asnowfix/go-virtualbox"
 	"github.com/golang/mock/gomock"
 )
 
@@ -15,7 +16,7 @@ func TestNATNets(t *testing.T) {
 			ManageMock.EXPECT().runOut("list", "natnets").Return(listHostOnlyIfsOut, nil).Times(1),
 		)
 	}
-	m, err := NATNets()
+	m, err := virtualbox.NATNets()
 	if err != nil {
 		t.Fatal(err)
 	}
