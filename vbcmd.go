@@ -1,4 +1,4 @@
-package virtualbox_test
+package virtualbox
 
 // Command is the mock-ed interface to run VirtualBox commands
 // such as VBoxManage (host side) or VBoxControl (guest side)

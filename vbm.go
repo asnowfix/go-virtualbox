@@ -12,11 +12,11 @@ import (
 	"strings"
 )
 
-type manage struct{}
+type manageCommand struct{}
 
 var (
 	// Manage holds the command to run VBoxManage
-	Manage manage
+	Manage Command
 	// VBM holds the inferred path to the VBoxManage utility.
 	VBM string
 	// Verbose when set toggle the library in verbose execution mode.
@@ -24,7 +24,7 @@ var (
 )
 
 func init() {
-	Manage = manage{}
+	Manage = &manageCommand{}
 
 	VBM = "VBoxManage"
 	p := os.Getenv("VBOX_INSTALL_PATH")
@@ -54,7 +54,7 @@ var (
 	ErrVBMNotFound = errors.New("VBoxManage not found")
 )
 
-func (manage) run(args ...string) error {
+func (manageCommand) run(args ...string) error {
 	cmd := exec.Command(VBM, args...)
 	if Verbose {
 		cmd.Stdout = os.Stdout
@@ -70,7 +70,7 @@ func (manage) run(args ...string) error {
 	return nil
 }
 
-func (manage) runOut(args ...string) (string, error) {
+func (manageCommand) runOut(args ...string) (string, error) {
 	cmd := exec.Command(VBM, args...)
 	if Verbose {
 		cmd.Stderr = os.Stderr
@@ -86,7 +86,7 @@ func (manage) runOut(args ...string) (string, error) {
 	return string(b), err
 }
 
-func (manage) runOutErr(args ...string) (string, string, error) {
+func (manageCommand) runOutErr(args ...string) (string, string, error) {
 	cmd := exec.Command(VBM, args...)
 	if Verbose {
 		log.Printf("executing: %v %v", VBM, strings.Join(args, " "))
